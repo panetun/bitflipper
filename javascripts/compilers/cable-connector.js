@@ -1,13 +1,23 @@
+////
+// A clickable audio input cable
+//
 up.compiler('cable-connector', function(element, data){
-  // Load template
-  const template = document.getElementById('cable-connector');
-  const templateContent = template.content;
-  element.appendChild(templateContent.cloneNode(true));
-  element.classList.add(data.modifier);
-  element.querySelector('.cable-connector--label').innerText = data.label;
-
-  // Initialize
   let enabled = false;
+
+  function init(){
+    // Load template
+    const template = document.getElementById('cable-connector');
+    const templateContent = template.content;
+    element.appendChild(templateContent.cloneNode(true));
+    element.classList.add(data.modifier);
+    element.querySelector('.cable-connector--label').innerText = data.label;
+  }
+
+  function switchToCable(_evt){
+    if(enabled){
+      InputController.setActive(element);
+    }
+  }
 
   function plugInCable(){
     element.classList.remove('-plugging-out');
@@ -30,24 +40,12 @@ up.compiler('cable-connector', function(element, data){
     }
   }
 
-  function switchToCable(_evt){
-    if(enabled){
-      InputController.setActive(element);
-    }
-  }
-
-  function disableCable(){
-    enabled = false;
-  }
-
-  function enableCable(){
-    enabled = true;
-  }
-
   up.on(element, 'click', switchToCable);
   up.on(element, 'plug-in', plugInCable);
   up.on(element, 'plug-out', plugOutCable);
   up.on('plug-in-success', plugOutOtherCables);
-  up.on('reset:off', disableCable);
-  up.on('reset:on', enableCable);
+  up.on('reset:off', () => enabled = false);
+  up.on('reset:on', () => enabled = true);
+
+  init();
 });
