@@ -23,7 +23,7 @@ window.Logger = new (class {
 =  =  ==  ===  =========  ======  ==  ==  =====  =====  =  ==  ======
 =    ===  ===   ========  ======  ==  ==  =====  ======   ===  ======
 =====================================================================`, 'background: #2b2b2b; color: #ccc')
-    console.log('Source: https://github.com/ichaelus/bitflipper')
+    console.log('Source: https://github.com/panetun/bitflipper')
   }
 })()
 
